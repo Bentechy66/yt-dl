@@ -16,11 +16,15 @@ ini_set('display_errors', TRUE);
 
          //header("Content-disposition: attachment; filename=\"" . $fn  ."\"");
          
-         exec("youtube-dl --extract-audio -o '" . $fn . "' --audio-format mp3 " . escapeshellarg($url));
-         header( 'Location: http://ben.mctrees.net/' . $fn) ;
+        exec("youtube-dl --extract-audio -o '" . $fn . "' --audio-format mp3 " . escapeshellarg($url));
+        $file_url = $fn;
+        header('Content-Type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary"); 
+        header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\""); 
+        readfile($file_url);
          
          
-         die();
+        die();
 }
 
    /* if(strpos($filename, '.mp3') !== false || strpos($filename, ' ') !== false) {
